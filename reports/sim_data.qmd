@@ -1,0 +1,74 @@
+---
+title: "Dados do SIM"
+format: html
+editor: visual
+---
+
+## Pacotes
+
+```{r}
+library(tidyverse)
+library(read.dbc)
+```
+
+## Leitura dos arquivos originais do SIM
+
+```{r}
+br2020 <- read.dbc(file = "../data/raw/DOBR2020.dbc")
+br2021 <- read.dbc(file = "../data/raw/DOBR2021.dbc")
+
+sim <- bind_rows(br2020, br2021) %>% as_tibble()
+rm(br2020, br2021)
+```
+
+```{r}
+write_rds(x = sim, file = "../data/sim.rds")
+```
+
+## Filtro Covid-19
+
+```{r}
+sim_covid19 <- sim %>%
+  mutate_at(c("CAUSABAS","LINHAA","LINHAB","LINHAC","LINHAD","LINHAII"), ~str_remove_all(., "[^[:alnum:]]")) %>%
+  mutate_at(c("CAUSABAS","LINHAA","LINHAB","LINHAC","LINHAD","LINHAII"), ~str_replace_na(., "")) %>%
+  mutate_at(c("CAUSABAS","LINHAA","LINHAB","LINHAC","LINHAD","LINHAII"), ~str_to_upper(., "")) %>%
+  mutate(CODCAUSAS2 = str_c(CAUSABAS, LINHAA, LINHAB, LINHAC, LINHAD, LINHAII, sep = "")) %>%
+  filter(str_detect(CAUSABAS, "B342|U07[1-2]") | str_detect(CODCAUSAS2, "B342|U07[1-2]"))
+  
+```
+
+## Faixas etárias
+
+```{r}
+sim_covid19 <- sim_covid19 %>% 
+  mutate(IDADE_class = case_when(str_detect(IDADE, "^[0-1]") ~ 1L, # 00-06 days
+            str_detect(IDADE, "^20[0-6]") ~ 1L, # 00-06 days
+            str_detect(IDADE, "^20[7-9]") ~ 2L, # 07-27 days 
+            str_detect(IDADE, "^21[0-9]") ~ 2L, # 07-27 days
+            str_detect(IDADE, "^22[0-7]") ~ 2L, # 07-27 days
+            str_detect(IDADE, "^22[8-9]") ~ 3L, # 28-364 days
+            str_detect(IDADE, "^3") ~ 3L, # 28-364 days
+            str_detect(IDADE, "^400") ~ 3L, # 28-364 days
+            str_detect(IDADE, "^40[1-4]") ~ 4L, # 01-4 years
+            str_detect(IDADE, "^40[5-9]") ~ 5L, # 05-14 years
+            str_detect(IDADE, "^41[0-4]") ~ 5L, # 05-14 years
+            str_detect(IDADE, "^41[5-9]") ~ 6L, # 15-24 years
+            str_detect(IDADE, "^42[0-4]") ~ 6L, # 15-24 years
+            str_detect(IDADE, "^42[4-9]") ~ 7L, # 25-34 years
+            str_detect(IDADE, "^43[0-4]") ~ 7L, # 25-34 years
+            str_detect(IDADE, "^43[5-9]") ~ 8L, # 35-44 years
+            str_detect(IDADE, "^44[0-4]") ~ 8L, # 35-44 years
+            str_detect(IDADE, "^44[5-9]") ~ 9L, # 45-54 years
+            str_detect(IDADE, "^45[0-4]") ~ 9L, # 45-54 years
+            str_detect(IDADE, "^45[5-9]") ~ 10L, # 55-64 years
+            str_detect(IDADE, "^46[0-4]") ~ 10L, # 55-64 years
+            str_detect(IDADE, "^46[5-9]") ~ 11L, # 65-74 years
+            str_detect(IDADE, "^47[0-4]") ~ 11L, # 65-74 years
+            str_detect(IDADE, "^47[5-9]") ~ 12L, # 75-84 years
+            str_detect(IDADE, "^48[0-4]") ~ 12L, # 75-84 years
+            TRUE ~ 13L))
+```
+
+```{r}
+write_rds(x = sim_covid19, file = "../data/sim_covid19.rds")
+```
