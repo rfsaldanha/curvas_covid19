@@ -1,26 +1,38 @@
 ---
-title: "SIM Nominal"
+title: "Óbitos por Covid-19 no SIM, valores nominais"
 format: html
 editor: visual
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+## Pacotes gerais
 
 ```{r}
-1 + 1
+library(tidyverse)
 ```
 
-You can add options to executable code like this
+## Dados
+
+Os dados de óbitos deste relatório são provenientes do Sistema de Informações de Mortalidade (SIM), indexados pela PCDaS e disponibilizados via API e token de acesso.
+
+A API é acessada através do pacote `rpcdas`.
 
 ```{r}
-#| echo: false
-2 * 2
+# remotes::install_github("rfsaldanha/rpcdas")
+library(rpcdas)
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+```{r}
+list_pcdas_tables()
+```
+
+## Brasil
+
+```{r}
+get_sim(agg = "uf_res", ano = 2020)
+```
+
+## Informações da sessão
+
+```{r}
+sessionInfo()
+```
