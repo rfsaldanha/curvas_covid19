@@ -1,5 +1,7 @@
 ---
 title: "Dados do SIM"
+date: now
+lang: pt
 format: html
 editor: visual
 ---
@@ -40,35 +42,42 @@ sim_covid19 <- sim %>%
 ## Faixas etárias
 
 ```{r}
-sim_covid19 <- sim_covid19 %>% 
-  mutate(IDADE_class = case_when(str_detect(IDADE, "^[0-1]") ~ 1L, # 00-06 days
-            str_detect(IDADE, "^20[0-6]") ~ 1L, # 00-06 days
-            str_detect(IDADE, "^20[7-9]") ~ 2L, # 07-27 days 
-            str_detect(IDADE, "^21[0-9]") ~ 2L, # 07-27 days
-            str_detect(IDADE, "^22[0-7]") ~ 2L, # 07-27 days
-            str_detect(IDADE, "^22[8-9]") ~ 3L, # 28-364 days
-            str_detect(IDADE, "^3") ~ 3L, # 28-364 days
-            str_detect(IDADE, "^400") ~ 3L, # 28-364 days
-            str_detect(IDADE, "^40[1-4]") ~ 4L, # 01-4 years
-            str_detect(IDADE, "^40[5-9]") ~ 5L, # 05-14 years
-            str_detect(IDADE, "^41[0-4]") ~ 5L, # 05-14 years
-            str_detect(IDADE, "^41[5-9]") ~ 6L, # 15-24 years
-            str_detect(IDADE, "^42[0-4]") ~ 6L, # 15-24 years
-            str_detect(IDADE, "^42[4-9]") ~ 7L, # 25-34 years
-            str_detect(IDADE, "^43[0-4]") ~ 7L, # 25-34 years
-            str_detect(IDADE, "^43[5-9]") ~ 8L, # 35-44 years
-            str_detect(IDADE, "^44[0-4]") ~ 8L, # 35-44 years
-            str_detect(IDADE, "^44[5-9]") ~ 9L, # 45-54 years
-            str_detect(IDADE, "^45[0-4]") ~ 9L, # 45-54 years
-            str_detect(IDADE, "^45[5-9]") ~ 10L, # 55-64 years
-            str_detect(IDADE, "^46[0-4]") ~ 10L, # 55-64 years
-            str_detect(IDADE, "^46[5-9]") ~ 11L, # 65-74 years
-            str_detect(IDADE, "^47[0-4]") ~ 11L, # 65-74 years
-            str_detect(IDADE, "^47[5-9]") ~ 12L, # 75-84 years
-            str_detect(IDADE, "^48[0-4]") ~ 12L, # 75-84 years
-            TRUE ~ 13L))
+sim_covid19_2 <- sim_covid19 %>% 
+  mutate(IDADE_class = case_when(
+            str_detect(IDADE, "^[0-1]") ~ "Neonatal precoce", # 00-06 days
+            str_detect(IDADE, "^20[0-6]") ~ "Neonatal precoce", # 00-06 days
+            str_detect(IDADE, "^20[7-9]") ~ "Neonatal tardia", # 07-27 days 
+            str_detect(IDADE, "^21[0-9]") ~ "Neonatal tardia", # 07-27 days
+            str_detect(IDADE, "^22[0-7]") ~ "Neonatal tardia", # 07-27 days
+            str_detect(IDADE, "^22[8-9]") ~ "Neonatal tardia a pré-escolar", # 28-364 days
+            str_detect(IDADE, "^3") ~ "Neonatal tardia a pré-escolar", # 28-364 days
+            str_detect(IDADE, "^400") ~ "Neonatal tardia a pré-escolar", # 28-364 days
+            str_detect(IDADE, "^40[1-4]") ~ "1 a 4 anos", # 01-4 years
+            str_detect(IDADE, "^40[5-9]") ~ "5 a 14 anos", # 05-14 years
+            str_detect(IDADE, "^41[0-4]") ~ "5 a 14 anos", # 05-14 years
+            str_detect(IDADE, "^41[5-9]") ~ "15 a 24 anos", # 15-24 years
+            str_detect(IDADE, "^42[0-4]") ~ "15 a 24 anos", # 15-24 years
+            str_detect(IDADE, "^42[4-9]") ~ "25 a 34 anos", # 25-34 years
+            str_detect(IDADE, "^43[0-4]") ~ "25 a 34 anos", # 25-34 years
+            str_detect(IDADE, "^43[5-9]") ~ "35 a 44 anos", # 35-44 years
+            str_detect(IDADE, "^44[0-4]") ~ "35 a 44 anos", # 35-44 years
+            str_detect(IDADE, "^44[5-9]") ~ "45 a 54 anos", # 45-54 years
+            str_detect(IDADE, "^45[0-4]") ~ "45 a 54 anos", # 45-54 years
+            str_detect(IDADE, "^45[5-9]") ~ "55 a 64 anos", # 55-64 years
+            str_detect(IDADE, "^46[0-4]") ~ "55 a 65 anos", # 55-64 years
+            str_detect(IDADE, "^46[5-9]") ~ "65 a 74 anos", # 65-74 years
+            str_detect(IDADE, "^47[0-4]") ~ "65 a 74 anos", # 65-74 years
+            str_detect(IDADE, "^47[5-9]") ~ "75 a 84 anos", # 75-84 years
+            str_detect(IDADE, "^48[0-4]") ~ "75 a 84 anos", # 75-84 years
+            TRUE ~ "84 anos ou mais"))
 ```
 
 ```{r}
 write_rds(x = sim_covid19, file = "../data/sim_covid19.rds")
+```
+
+## Informações da sessão
+
+```{r}
+sessionInfo()
 ```
