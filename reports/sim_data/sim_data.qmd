@@ -16,15 +16,15 @@ library(read.dbc)
 ## Leitura dos arquivos originais do SIM
 
 ```{r}
-br2020 <- read.dbc(file = "../data/raw/DOBR2020.dbc")
-br2021 <- read.dbc(file = "../data/raw/DOBR2021.dbc")
+br2020 <- read.dbc(file = "../../data/raw/DOBR2020.dbc")
+br2021 <- read.dbc(file = "../../data/raw/DOBR2021.dbc")
 
 sim <- bind_rows(br2020, br2021) %>% as_tibble()
 rm(br2020, br2021)
 ```
 
 ```{r}
-write_rds(x = sim, file = "../data/sim.rds")
+write_rds(x = sim, file = "../../data/sim.rds")
 ```
 
 ## Filtro Covid-19
@@ -42,7 +42,7 @@ sim_covid19 <- sim %>%
 ## Faixas etárias
 
 ```{r}
-sim_covid19_2 <- sim_covid19 %>% 
+sim_covid19 <- sim_covid19 %>% 
   mutate(IDADE_class = case_when(
             str_detect(IDADE, "^[0-1]") ~ "Neonatal precoce", # 00-06 days
             str_detect(IDADE, "^20[0-6]") ~ "Neonatal precoce", # 00-06 days
@@ -64,16 +64,40 @@ sim_covid19_2 <- sim_covid19 %>%
             str_detect(IDADE, "^44[5-9]") ~ "45 a 54 anos", # 45-54 years
             str_detect(IDADE, "^45[0-4]") ~ "45 a 54 anos", # 45-54 years
             str_detect(IDADE, "^45[5-9]") ~ "55 a 64 anos", # 55-64 years
-            str_detect(IDADE, "^46[0-4]") ~ "55 a 65 anos", # 55-64 years
+            str_detect(IDADE, "^46[0-4]") ~ "55 a 64 anos", # 55-64 years
             str_detect(IDADE, "^46[5-9]") ~ "65 a 74 anos", # 65-74 years
             str_detect(IDADE, "^47[0-4]") ~ "65 a 74 anos", # 65-74 years
             str_detect(IDADE, "^47[5-9]") ~ "75 a 84 anos", # 75-84 years
             str_detect(IDADE, "^48[0-4]") ~ "75 a 84 anos", # 75-84 years
-            TRUE ~ "84 anos ou mais"))
+            TRUE ~ "85 anos ou mais")) %>%
+  mutate(IDADE_class = factor(x = IDADE_class, levels = c(
+    "Neonatal precoce",
+    "Neonatal tardia",
+    "Neonatal tardia a pré-escolar",
+    "1 a 4 anos",
+    "5 a 14 anos",
+    "15 a 24 anos",
+    "25 a 34 anos",
+    "35 a 44 anos",
+    "45 a 54 anos",
+    "55 a 64 anos",
+    "65 a 74 anos",
+    "75 a 84 anos",
+    "85 anos ou mais"
+  )))
 ```
 
+## Tratamento de campos
+
 ```{r}
-write_rds(x = sim_covid19, file = "../data/sim_covid19.rds")
+sim_covid19 <- sim_covid19 %>% 
+  mutate(DTOBITO = as.Date(x = DTOBITO, format = "%d%m%Y"))
+```
+
+## Salva arquivo
+
+```{r}
+write_rds(x = sim_covid19, file = "../../data/sim_covid19.rds")
 ```
 
 ## Informações da sessão

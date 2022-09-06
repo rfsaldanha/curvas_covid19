@@ -143,14 +143,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="leitura-dos-arquivos-originais-do-sim" class="level2">
 <h2 class="anchored" data-anchor-id="leitura-dos-arquivos-originais-do-sim">Leitura dos arquivos originais do SIM</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>br2020 <span class="ot">&lt;-</span> <span class="fu">read.dbc</span>(<span class="at">file =</span> <span class="st">"../data/raw/DOBR2020.dbc"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>br2021 <span class="ot">&lt;-</span> <span class="fu">read.dbc</span>(<span class="at">file =</span> <span class="st">"../data/raw/DOBR2021.dbc"</span>)</span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>br2020 <span class="ot">&lt;-</span> <span class="fu">read.dbc</span>(<span class="at">file =</span> <span class="st">"../../data/raw/DOBR2020.dbc"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>br2021 <span class="ot">&lt;-</span> <span class="fu">read.dbc</span>(<span class="at">file =</span> <span class="st">"../../data/raw/DOBR2021.dbc"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(br2020, br2021) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(br2020, br2021)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(<span class="at">x =</span> sim, <span class="at">file =</span> <span class="st">"../data/sim.rds"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(<span class="at">x =</span> sim, <span class="at">file =</span> <span class="st">"../../data/sim.rds"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="filtro-covid-19" class="level2">
@@ -167,7 +167,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="faixas-etárias" class="level2">
 <h2 class="anchored" data-anchor-id="faixas-etárias">Faixas etárias</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sim_covid19_2 <span class="ot">&lt;-</span> sim_covid19 <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sim_covid19 <span class="ot">&lt;-</span> sim_covid19 <span class="sc">%&gt;%</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">IDADE_class =</span> <span class="fu">case_when</span>(</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^[0-1]"</span>) <span class="sc">~</span> <span class="st">"Neonatal precoce"</span>, <span class="co"># 00-06 days</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^20[0-6]"</span>) <span class="sc">~</span> <span class="st">"Neonatal precoce"</span>, <span class="co"># 00-06 days</span></span>
@@ -189,21 +189,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^44[5-9]"</span>) <span class="sc">~</span> <span class="st">"45 a 54 anos"</span>, <span class="co"># 45-54 years</span></span>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^45[0-4]"</span>) <span class="sc">~</span> <span class="st">"45 a 54 anos"</span>, <span class="co"># 45-54 years</span></span>
 <span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^45[5-9]"</span>) <span class="sc">~</span> <span class="st">"55 a 64 anos"</span>, <span class="co"># 55-64 years</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^46[0-4]"</span>) <span class="sc">~</span> <span class="st">"55 a 65 anos"</span>, <span class="co"># 55-64 years</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^46[0-4]"</span>) <span class="sc">~</span> <span class="st">"55 a 64 anos"</span>, <span class="co"># 55-64 years</span></span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^46[5-9]"</span>) <span class="sc">~</span> <span class="st">"65 a 74 anos"</span>, <span class="co"># 65-74 years</span></span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^47[0-4]"</span>) <span class="sc">~</span> <span class="st">"65 a 74 anos"</span>, <span class="co"># 65-74 years</span></span>
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^47[5-9]"</span>) <span class="sc">~</span> <span class="st">"75 a 84 anos"</span>, <span class="co"># 75-84 years</span></span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^48[0-4]"</span>) <span class="sc">~</span> <span class="st">"75 a 84 anos"</span>, <span class="co"># 75-84 years</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>            <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"84 anos ou mais"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>            <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"85 anos ou mais"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">IDADE_class =</span> <span class="fu">factor</span>(<span class="at">x =</span> IDADE_class, <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Neonatal precoce"</span>,</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Neonatal tardia"</span>,</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Neonatal tardia a pré-escolar"</span>,</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"1 a 4 anos"</span>,</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"5 a 14 anos"</span>,</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">"15 a 24 anos"</span>,</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">"25 a 34 anos"</span>,</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"35 a 44 anos"</span>,</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">"45 a 54 anos"</span>,</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    <span class="st">"55 a 64 anos"</span>,</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="st">"65 a 74 anos"</span>,</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"75 a 84 anos"</span>,</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="st">"85 anos ou mais"</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>  )))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="tratamento-de-campos" class="level2">
+<h2 class="anchored" data-anchor-id="tratamento-de-campos">Tratamento de campos</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(<span class="at">x =</span> sim_covid19, <span class="at">file =</span> <span class="st">"../data/sim_covid19.rds"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sim_covid19 <span class="ot">&lt;-</span> sim_covid19 <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">DTOBITO =</span> <span class="fu">as.Date</span>(<span class="at">x =</span> DTOBITO, <span class="at">format =</span> <span class="st">"%d%m%Y"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="salva-arquivo" class="level2">
+<h2 class="anchored" data-anchor-id="salva-arquivo">Salva arquivo</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(<span class="at">x =</span> sim_covid19, <span class="at">file =</span> <span class="st">"../../data/sim_covid19.rds"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="informações-da-sessão" class="level2">
 <h2 class="anchored" data-anchor-id="informações-da-sessão">Informações da sessão</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.2.0 (2022-04-22)
 Platform: aarch64-apple-darwin20 (64-bit)
