@@ -41,6 +41,101 @@ sim_covid19 %>%
   )
 ```
 
+### Escolaridade
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, escolaridade) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("Escolaridade", "2020", "2021", "Total")
+  )
+```
+
+### Raça/cor
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, racacor) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("Raça/cor", "2020", "2021", "Total")
+  )
+```
+
+### Sexo
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, sexo) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("Sexo", "2020", "2021", "Total")
+  )
+```
+
+### Ocupação (1)
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, ocup1) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("Ocupação", "2020", "2021", "Total")
+  )
+```
+
+### Ocupação (2)
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, ocup2) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("Ocupação", "2020", "2021", "Total")
+  )
+```
+
 ## Informações da sessão
 
 ```{r}

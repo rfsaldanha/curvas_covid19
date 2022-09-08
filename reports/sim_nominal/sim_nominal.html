@@ -260,11 +260,620 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
+<section id="escolaridade" class="level3">
+<h3 class="anchored" data-anchor-id="escolaridade">Escolaridade</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sim_covid19 <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ano_obito, escolaridade) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">freq =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> ano_obito,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> freq</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">2020</span><span class="st">`</span>, <span class="st">`</span><span class="at">2021</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">"."</span>, <span class="at">decimal.mark =</span> <span class="st">","</span>), </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Escolaridade"</span>, <span class="st">"2020"</span>, <span class="st">"2021"</span>, <span class="st">"Total"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Escolaridade</th>
+<th style="text-align: right;">2020</th>
+<th style="text-align: right;">2021</th>
+<th style="text-align: right;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Nenhuma</td>
+<td style="text-align: right;">28.074</td>
+<td style="text-align: right;">41.616</td>
+<td style="text-align: right;">69.690</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1 a 3 anos</td>
+<td style="text-align: right;">43.423</td>
+<td style="text-align: right;">73.681</td>
+<td style="text-align: right;">117.104</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4 a 7 anos</td>
+<td style="text-align: right;">45.151</td>
+<td style="text-align: right;">94.004</td>
+<td style="text-align: right;">139.155</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">8 a 11 anos</td>
+<td style="text-align: right;">47.003</td>
+<td style="text-align: right;">114.727</td>
+<td style="text-align: right;">161.730</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">12 anos ou mais</td>
+<td style="text-align: right;">19.620</td>
+<td style="text-align: right;">49.299</td>
+<td style="text-align: right;">68.919</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">41.447</td>
+<td style="text-align: right;">70.451</td>
+<td style="text-align: right;">111.898</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="raçacor" class="level3">
+<h3 class="anchored" data-anchor-id="raçacor">Raça/cor</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sim_covid19 <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ano_obito, racacor) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">freq =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> ano_obito,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> freq</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">2020</span><span class="st">`</span>, <span class="st">`</span><span class="at">2021</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">"."</span>, <span class="at">decimal.mark =</span> <span class="st">","</span>), </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Raça/cor"</span>, <span class="st">"2020"</span>, <span class="st">"2021"</span>, <span class="st">"Total"</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Raça/cor</th>
+<th style="text-align: right;">2020</th>
+<th style="text-align: right;">2021</th>
+<th style="text-align: right;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Branca</td>
+<td style="text-align: right;">108.494</td>
+<td style="text-align: right;">247.386</td>
+<td style="text-align: right;">355.880</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Preta</td>
+<td style="text-align: right;">19.743</td>
+<td style="text-align: right;">34.003</td>
+<td style="text-align: right;">53.746</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Amarela</td>
+<td style="text-align: right;">1.519</td>
+<td style="text-align: right;">2.703</td>
+<td style="text-align: right;">4.222</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Parda</td>
+<td style="text-align: right;">86.987</td>
+<td style="text-align: right;">147.900</td>
+<td style="text-align: right;">234.887</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Indígena</td>
+<td style="text-align: right;">1.030</td>
+<td style="text-align: right;">915</td>
+<td style="text-align: right;">1.945</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">6.945</td>
+<td style="text-align: right;">10.871</td>
+<td style="text-align: right;">17.816</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="sexo" class="level3">
+<h3 class="anchored" data-anchor-id="sexo">Sexo</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sim_covid19 <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ano_obito, sexo) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">freq =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> ano_obito,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> freq</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">2020</span><span class="st">`</span>, <span class="st">`</span><span class="at">2021</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">"."</span>, <span class="at">decimal.mark =</span> <span class="st">","</span>), </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Sexo"</span>, <span class="st">"2020"</span>, <span class="st">"2021"</span>, <span class="st">"Total"</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Sexo</th>
+<th style="text-align: right;">2020</th>
+<th style="text-align: right;">2021</th>
+<th style="text-align: right;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Masculino</td>
+<td style="text-align: right;">128.343</td>
+<td style="text-align: right;">245.927</td>
+<td style="text-align: right;">374.270</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Feminino</td>
+<td style="text-align: right;">96.358</td>
+<td style="text-align: right;">197.797</td>
+<td style="text-align: right;">294.155</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">54</td>
+<td style="text-align: right;">71</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="ocupação-1" class="level3">
+<h3 class="anchored" data-anchor-id="ocupação-1">Ocupação (1)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sim_covid19 <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ano_obito, ocup1) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">freq =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> ano_obito,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> freq</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">2020</span><span class="st">`</span>, <span class="st">`</span><span class="at">2021</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">"."</span>, <span class="at">decimal.mark =</span> <span class="st">","</span>), </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Ocupação"</span>, <span class="st">"2020"</span>, <span class="st">"2021"</span>, <span class="st">"Total"</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 82%">
+<col style="width: 5%">
+<col style="width: 6%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ocupação</th>
+<th style="text-align: right;">2020</th>
+<th style="text-align: right;">2021</th>
+<th style="text-align: right;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Membros das forças armadas, bombeiros e militares</td>
+<td style="text-align: right;">1.545</td>
+<td style="text-align: right;">2.834</td>
+<td style="text-align: right;">4.379</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Membros superiores do poder público, dirigentes de organizações de interesse público e de empresas, gerentes</td>
+<td style="text-align: right;">7.728</td>
+<td style="text-align: right;">18.458</td>
+<td style="text-align: right;">26.186</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Profissionais das ciências e das artes</td>
+<td style="text-align: right;">11.150</td>
+<td style="text-align: right;">26.722</td>
+<td style="text-align: right;">37.872</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Técnicos de nível médio</td>
+<td style="text-align: right;">11.012</td>
+<td style="text-align: right;">26.333</td>
+<td style="text-align: right;">37.345</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trabalhadores agropecuários, florestais e da pesca</td>
+<td style="text-align: right;">17.247</td>
+<td style="text-align: right;">31.979</td>
+<td style="text-align: right;">49.226</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trabalhadores da produção de bens e serviços industriais</td>
+<td style="text-align: right;">21.840</td>
+<td style="text-align: right;">45.839</td>
+<td style="text-align: right;">67.679</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trabalhadores de serviços administrativos</td>
+<td style="text-align: right;">3.382</td>
+<td style="text-align: right;">8.462</td>
+<td style="text-align: right;">11.844</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trabalhadores dos serviços, vendedores do comércio em lojas e mercados</td>
+<td style="text-align: right;">17.412</td>
+<td style="text-align: right;">38.345</td>
+<td style="text-align: right;">55.757</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trabalhadores em serviços de reparação e manutenção</td>
+<td style="text-align: right;">99.549</td>
+<td style="text-align: right;">186.877</td>
+<td style="text-align: right;">286.426</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">33.853</td>
+<td style="text-align: right;">57.929</td>
+<td style="text-align: right;">91.782</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="ocupação-2" class="level3">
+<h3 class="anchored" data-anchor-id="ocupação-2">Ocupação (2)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sim_covid19 <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(ano_obito, ocup2) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">freq =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_from =</span> ano_obito,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_from =</span> freq</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">2020</span><span class="st">`</span>, <span class="st">`</span><span class="at">2021</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">format.args =</span> <span class="fu">list</span>(<span class="at">big.mark =</span> <span class="st">"."</span>, <span class="at">decimal.mark =</span> <span class="st">","</span>), </span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Ocupação"</span>, <span class="st">"2020"</span>, <span class="st">"2021"</span>, <span class="st">"Total"</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 83%">
+<col style="width: 5%">
+<col style="width: 5%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Ocupação</th>
+<th style="text-align: right;">2020</th>
+<th style="text-align: right;">2021</th>
+<th style="text-align: right;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Bombeiros militares</td>
+<td style="text-align: right;">144</td>
+<td style="text-align: right;">243</td>
+<td style="text-align: right;">387</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Comunicadores, artistas e religiosos</td>
+<td style="text-align: right;">1.484</td>
+<td style="text-align: right;">3.750</td>
+<td style="text-align: right;">5.234</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Diretores e gerentes em empresas de serviços de saúde, da educação, ou de serviços culturais, sociais ou pessoais</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">95</td>
+<td style="text-align: right;">147</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dirigentes de empresas e organizações (exceto de interesse público)</td>
+<td style="text-align: right;">564</td>
+<td style="text-align: right;">1.722</td>
+<td style="text-align: right;">2.286</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Escriturários</td>
+<td style="text-align: right;">2.605</td>
+<td style="text-align: right;">6.289</td>
+<td style="text-align: right;">8.894</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Gerentes</td>
+<td style="text-align: right;">5.776</td>
+<td style="text-align: right;">13.324</td>
+<td style="text-align: right;">19.100</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Joalheiros, vidreiros, ceramistas e afins</td>
+<td style="text-align: right;">211</td>
+<td style="text-align: right;">408</td>
+<td style="text-align: right;">619</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Membro das forças armadas</td>
+<td style="text-align: right;">319</td>
+<td style="text-align: right;">489</td>
+<td style="text-align: right;">808</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Membros superiores e dirigentes do poder público</td>
+<td style="text-align: right;">1.336</td>
+<td style="text-align: right;">3.317</td>
+<td style="text-align: right;">4.653</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Montadores de aparelhos e instrumentos de precisão e musicais</td>
+<td style="text-align: right;">37</td>
+<td style="text-align: right;">69</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Operadores de produção, captação, tratamento e distribuição (energia, água e utilidades)</td>
+<td style="text-align: right;">484</td>
+<td style="text-align: right;">1.333</td>
+<td style="text-align: right;">1.817</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Outros técnicos de nível médio</td>
+<td style="text-align: right;">110</td>
+<td style="text-align: right;">294</td>
+<td style="text-align: right;">404</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Outros trabalhadores da conservação, manutenção e reparação</td>
+<td style="text-align: right;">98.068</td>
+<td style="text-align: right;">183.514</td>
+<td style="text-align: right;">281.582</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pescadores e extrativistas florestais</td>
+<td style="text-align: right;">844</td>
+<td style="text-align: right;">1.186</td>
+<td style="text-align: right;">2.030</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pesquisadores e profissionais policientíficos</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">93</td>
+<td style="text-align: right;">120</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Policiais militares</td>
+<td style="text-align: right;">1.082</td>
+<td style="text-align: right;">2.102</td>
+<td style="text-align: right;">3.184</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Polimantenedores</td>
+<td style="text-align: right;">207</td>
+<td style="text-align: right;">431</td>
+<td style="text-align: right;">638</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Produtores na exploração agropecuária</td>
+<td style="text-align: right;">2.793</td>
+<td style="text-align: right;">4.861</td>
+<td style="text-align: right;">7.654</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Professores leigos e de ensino médio</td>
+<td style="text-align: right;">736</td>
+<td style="text-align: right;">1.956</td>
+<td style="text-align: right;">2.692</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Profissionais das ciências biológicas, da saúde e afins</td>
+<td style="text-align: right;">2.072</td>
+<td style="text-align: right;">3.507</td>
+<td style="text-align: right;">5.579</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Profissionais das ciências exatas, físicas e da engenharia</td>
+<td style="text-align: right;">1.190</td>
+<td style="text-align: right;">3.099</td>
+<td style="text-align: right;">4.289</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Profissionais das ciências humanas</td>
+<td style="text-align: right;">2.635</td>
+<td style="text-align: right;">6.310</td>
+<td style="text-align: right;">8.945</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Profissionais das ciências jurídicas</td>
+<td style="text-align: right;">1.290</td>
+<td style="text-align: right;">2.984</td>
+<td style="text-align: right;">4.274</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Profissionais do ensino</td>
+<td style="text-align: right;">2.452</td>
+<td style="text-align: right;">6.979</td>
+<td style="text-align: right;">9.431</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Técnicos de nível médio das ciências biológicas, bioquímicas, da saúde e afins</td>
+<td style="text-align: right;">1.615</td>
+<td style="text-align: right;">2.753</td>
+<td style="text-align: right;">4.368</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Técnicos de nível médio das ciências físicas, químicas, engenharias e afins</td>
+<td style="text-align: right;">943</td>
+<td style="text-align: right;">2.601</td>
+<td style="text-align: right;">3.544</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Técnicos de nível médio dos serviços culturais, das comunicações e dos desportos</td>
+<td style="text-align: right;">174</td>
+<td style="text-align: right;">404</td>
+<td style="text-align: right;">578</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Técnicos de nível médio em serviços de transporte</td>
+<td style="text-align: right;">171</td>
+<td style="text-align: right;">333</td>
+<td style="text-align: right;">504</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Técnicos de nível médio nas ciências administrativas</td>
+<td style="text-align: right;">7.196</td>
+<td style="text-align: right;">17.881</td>
+<td style="text-align: right;">25.077</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Técnicos polivalentes</td>
+<td style="text-align: right;">67</td>
+<td style="text-align: right;">111</td>
+<td style="text-align: right;">178</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trabalhadores da fabricação de alimentos, bebidas e fumo</td>
+<td style="text-align: right;">699</td>
+<td style="text-align: right;">1.709</td>
+<td style="text-align: right;">2.408</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trabalhadores da fabricação e instalação eletroeletrônica</td>
+<td style="text-align: right;">84</td>
+<td style="text-align: right;">184</td>
+<td style="text-align: right;">268</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trabalhadores da indústria extrativista e da construção civil</td>
+<td style="text-align: right;">7.106</td>
+<td style="text-align: right;">12.545</td>
+<td style="text-align: right;">19.651</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trabalhadores da mecanização agropecuária e florestal</td>
+<td style="text-align: right;">127</td>
+<td style="text-align: right;">426</td>
+<td style="text-align: right;">553</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trabalhadores da transformação de metais e de compósitos</td>
+<td style="text-align: right;">1.870</td>
+<td style="text-align: right;">3.856</td>
+<td style="text-align: right;">5.726</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trabalhadores das indústrias de madeira e imobiliário</td>
+<td style="text-align: right;">767</td>
+<td style="text-align: right;">1.437</td>
+<td style="text-align: right;">2.204</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trabalhadores de atendimento ao público</td>
+<td style="text-align: right;">777</td>
+<td style="text-align: right;">2.173</td>
+<td style="text-align: right;">2.950</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trabalhadores de funções transversais</td>
+<td style="text-align: right;">7.499</td>
+<td style="text-align: right;">17.805</td>
+<td style="text-align: right;">25.304</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trabalhadores de instalações e máquinas de fabricação de celulose e papel</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">49</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trabalhadores de instalações siderúrgicas e de materiais de construção</td>
+<td style="text-align: right;">445</td>
+<td style="text-align: right;">977</td>
+<td style="text-align: right;">1.422</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trabalhadores dos serviços</td>
+<td style="text-align: right;">14.360</td>
+<td style="text-align: right;">30.811</td>
+<td style="text-align: right;">45.171</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trabalhadores em indústrias de processos contínuos e outras indústrias</td>
+<td style="text-align: right;">82</td>
+<td style="text-align: right;">185</td>
+<td style="text-align: right;">267</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trabalhadores em serviços de reparação e manutenção</td>
+<td style="text-align: right;">1.274</td>
+<td style="text-align: right;">2.932</td>
+<td style="text-align: right;">4.206</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trabalhadores na exploração agropecuária</td>
+<td style="text-align: right;">13.483</td>
+<td style="text-align: right;">25.506</td>
+<td style="text-align: right;">38.989</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Trabalhadores nas indústrias têxtil, do curtimento, do vestuário e das artes gráficas</td>
+<td style="text-align: right;">2.546</td>
+<td style="text-align: right;">5.292</td>
+<td style="text-align: right;">7.838</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Vendedores e prestadores de serviços do comércio</td>
+<td style="text-align: right;">3.052</td>
+<td style="text-align: right;">7.534</td>
+<td style="text-align: right;">10.586</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">33.853</td>
+<td style="text-align: right;">57.929</td>
+<td style="text-align: right;">91.782</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
 </section>
 <section id="informações-da-sessão" class="level2">
 <h2 class="anchored" data-anchor-id="informações-da-sessão">Informações da sessão</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.2.0 (2022-04-22)
 Platform: aarch64-apple-darwin20 (64-bit)
