@@ -11,6 +11,7 @@ editor: visual
 ```{r}
 library(tidyverse)
 library(read.dbc)
+library(lubridate)
 ```
 
 ## Leitura dos arquivos originais do SIM
@@ -43,7 +44,7 @@ sim_covid19 <- sim %>%
 
 ```{r}
 sim_covid19 <- sim_covid19 %>% 
-  mutate(IDADE_class = case_when(
+  mutate(age_group = case_when(
             str_detect(IDADE, "^[0-1]") ~ "Neonatal precoce", # 00-06 days
             str_detect(IDADE, "^20[0-6]") ~ "Neonatal precoce", # 00-06 days
             str_detect(IDADE, "^20[7-9]") ~ "Neonatal tardia", # 07-27 days 
@@ -70,7 +71,7 @@ sim_covid19 <- sim_covid19 %>%
             str_detect(IDADE, "^47[5-9]") ~ "75 a 84 anos", # 75-84 years
             str_detect(IDADE, "^48[0-4]") ~ "75 a 84 anos", # 75-84 years
             TRUE ~ "85 anos ou mais")) %>%
-  mutate(IDADE_class = factor(x = IDADE_class, levels = c(
+  mutate(age_group = factor(x = age_group, levels = c(
     "Neonatal precoce",
     "Neonatal tardia",
     "Neonatal tardia a pré-escolar",
@@ -91,7 +92,10 @@ sim_covid19 <- sim_covid19 %>%
 
 ```{r}
 sim_covid19 <- sim_covid19 %>% 
-  mutate(DTOBITO = as.Date(x = DTOBITO, format = "%d%m%Y"))
+  mutate(
+    DTOBITO = as.Date(x = DTOBITO, format = "%d%m%Y"),
+    ano_obito = year(DTOBITO)
+  )
 ```
 
 ## Salva arquivo

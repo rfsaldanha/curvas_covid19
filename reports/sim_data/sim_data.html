@@ -114,7 +114,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Data de Publicação</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">6 de setembro de 2022</p>
+      <p class="date">8 de setembro de 2022</p>
     </div>
   </div>
     
@@ -131,104 +131,116 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
 ✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
 ✔ tibble  3.1.8      ✔ dplyr   1.0.10
-✔ tidyr   1.2.0      ✔ stringr 1.4.1 
+✔ tidyr   1.2.1      ✔ stringr 1.4.1 
 ✔ readr   2.1.2      ✔ forcats 0.5.2 
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(read.dbc)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(read.dbc)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'lubridate'
+
+The following objects are masked from 'package:base':
+
+    date, intersect, setdiff, union</code></pre>
+</div>
 </div>
 </section>
 <section id="leitura-dos-arquivos-originais-do-sim" class="level2">
 <h2 class="anchored" data-anchor-id="leitura-dos-arquivos-originais-do-sim">Leitura dos arquivos originais do SIM</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>br2020 <span class="ot">&lt;-</span> <span class="fu">read.dbc</span>(<span class="at">file =</span> <span class="st">"../../data/raw/DOBR2020.dbc"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>br2021 <span class="ot">&lt;-</span> <span class="fu">read.dbc</span>(<span class="at">file =</span> <span class="st">"../../data/raw/DOBR2021.dbc"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(br2020, br2021) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(br2020, br2021)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>br2020 <span class="ot">&lt;-</span> <span class="fu">read.dbc</span>(<span class="at">file =</span> <span class="st">"../../data/raw/DOBR2020.dbc"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>br2021 <span class="ot">&lt;-</span> <span class="fu">read.dbc</span>(<span class="at">file =</span> <span class="st">"../../data/raw/DOBR2021.dbc"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>sim <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(br2020, br2021) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(br2020, br2021)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(<span class="at">x =</span> sim, <span class="at">file =</span> <span class="st">"../../data/sim.rds"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(<span class="at">x =</span> sim, <span class="at">file =</span> <span class="st">"../../data/sim.rds"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="filtro-covid-19" class="level2">
 <h2 class="anchored" data-anchor-id="filtro-covid-19">Filtro Covid-19</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sim_covid19 <span class="ot">&lt;-</span> sim <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">c</span>(<span class="st">"CAUSABAS"</span>,<span class="st">"LINHAA"</span>,<span class="st">"LINHAB"</span>,<span class="st">"LINHAC"</span>,<span class="st">"LINHAD"</span>,<span class="st">"LINHAII"</span>), <span class="sc">~</span><span class="fu">str_remove_all</span>(., <span class="st">"[^[:alnum:]]"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">c</span>(<span class="st">"CAUSABAS"</span>,<span class="st">"LINHAA"</span>,<span class="st">"LINHAB"</span>,<span class="st">"LINHAC"</span>,<span class="st">"LINHAD"</span>,<span class="st">"LINHAII"</span>), <span class="sc">~</span><span class="fu">str_replace_na</span>(., <span class="st">""</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">c</span>(<span class="st">"CAUSABAS"</span>,<span class="st">"LINHAA"</span>,<span class="st">"LINHAB"</span>,<span class="st">"LINHAC"</span>,<span class="st">"LINHAD"</span>,<span class="st">"LINHAII"</span>), <span class="sc">~</span><span class="fu">str_to_upper</span>(., <span class="st">""</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">CODCAUSAS2 =</span> <span class="fu">str_c</span>(CAUSABAS, LINHAA, LINHAB, LINHAC, LINHAD, LINHAII, <span class="at">sep =</span> <span class="st">""</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(CAUSABAS, <span class="st">"B342|U07[1-2]"</span>) <span class="sc">|</span> <span class="fu">str_detect</span>(CODCAUSAS2, <span class="st">"B342|U07[1-2]"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sim_covid19 <span class="ot">&lt;-</span> sim <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">c</span>(<span class="st">"CAUSABAS"</span>,<span class="st">"LINHAA"</span>,<span class="st">"LINHAB"</span>,<span class="st">"LINHAC"</span>,<span class="st">"LINHAD"</span>,<span class="st">"LINHAII"</span>), <span class="sc">~</span><span class="fu">str_remove_all</span>(., <span class="st">"[^[:alnum:]]"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">c</span>(<span class="st">"CAUSABAS"</span>,<span class="st">"LINHAA"</span>,<span class="st">"LINHAB"</span>,<span class="st">"LINHAC"</span>,<span class="st">"LINHAD"</span>,<span class="st">"LINHAII"</span>), <span class="sc">~</span><span class="fu">str_replace_na</span>(., <span class="st">""</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">c</span>(<span class="st">"CAUSABAS"</span>,<span class="st">"LINHAA"</span>,<span class="st">"LINHAB"</span>,<span class="st">"LINHAC"</span>,<span class="st">"LINHAD"</span>,<span class="st">"LINHAII"</span>), <span class="sc">~</span><span class="fu">str_to_upper</span>(., <span class="st">""</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">CODCAUSAS2 =</span> <span class="fu">str_c</span>(CAUSABAS, LINHAA, LINHAB, LINHAC, LINHAD, LINHAII, <span class="at">sep =</span> <span class="st">""</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(CAUSABAS, <span class="st">"B342|U07[1-2]"</span>) <span class="sc">|</span> <span class="fu">str_detect</span>(CODCAUSAS2, <span class="st">"B342|U07[1-2]"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="faixas-etárias" class="level2">
 <h2 class="anchored" data-anchor-id="faixas-etárias">Faixas etárias</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sim_covid19 <span class="ot">&lt;-</span> sim_covid19 <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">IDADE_class =</span> <span class="fu">case_when</span>(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^[0-1]"</span>) <span class="sc">~</span> <span class="st">"Neonatal precoce"</span>, <span class="co"># 00-06 days</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^20[0-6]"</span>) <span class="sc">~</span> <span class="st">"Neonatal precoce"</span>, <span class="co"># 00-06 days</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^20[7-9]"</span>) <span class="sc">~</span> <span class="st">"Neonatal tardia"</span>, <span class="co"># 07-27 days </span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^21[0-9]"</span>) <span class="sc">~</span> <span class="st">"Neonatal tardia"</span>, <span class="co"># 07-27 days</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^22[0-7]"</span>) <span class="sc">~</span> <span class="st">"Neonatal tardia"</span>, <span class="co"># 07-27 days</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^22[8-9]"</span>) <span class="sc">~</span> <span class="st">"Neonatal tardia a pré-escolar"</span>, <span class="co"># 28-364 days</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^3"</span>) <span class="sc">~</span> <span class="st">"Neonatal tardia a pré-escolar"</span>, <span class="co"># 28-364 days</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^400"</span>) <span class="sc">~</span> <span class="st">"Neonatal tardia a pré-escolar"</span>, <span class="co"># 28-364 days</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^40[1-4]"</span>) <span class="sc">~</span> <span class="st">"1 a 4 anos"</span>, <span class="co"># 01-4 years</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^40[5-9]"</span>) <span class="sc">~</span> <span class="st">"5 a 14 anos"</span>, <span class="co"># 05-14 years</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^41[0-4]"</span>) <span class="sc">~</span> <span class="st">"5 a 14 anos"</span>, <span class="co"># 05-14 years</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^41[5-9]"</span>) <span class="sc">~</span> <span class="st">"15 a 24 anos"</span>, <span class="co"># 15-24 years</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^42[0-4]"</span>) <span class="sc">~</span> <span class="st">"15 a 24 anos"</span>, <span class="co"># 15-24 years</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^42[4-9]"</span>) <span class="sc">~</span> <span class="st">"25 a 34 anos"</span>, <span class="co"># 25-34 years</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^43[0-4]"</span>) <span class="sc">~</span> <span class="st">"25 a 34 anos"</span>, <span class="co"># 25-34 years</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^43[5-9]"</span>) <span class="sc">~</span> <span class="st">"35 a 44 anos"</span>, <span class="co"># 35-44 years</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^44[0-4]"</span>) <span class="sc">~</span> <span class="st">"35 a 44 anos"</span>, <span class="co"># 35-44 years</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^44[5-9]"</span>) <span class="sc">~</span> <span class="st">"45 a 54 anos"</span>, <span class="co"># 45-54 years</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^45[0-4]"</span>) <span class="sc">~</span> <span class="st">"45 a 54 anos"</span>, <span class="co"># 45-54 years</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^45[5-9]"</span>) <span class="sc">~</span> <span class="st">"55 a 64 anos"</span>, <span class="co"># 55-64 years</span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^46[0-4]"</span>) <span class="sc">~</span> <span class="st">"55 a 64 anos"</span>, <span class="co"># 55-64 years</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^46[5-9]"</span>) <span class="sc">~</span> <span class="st">"65 a 74 anos"</span>, <span class="co"># 65-74 years</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^47[0-4]"</span>) <span class="sc">~</span> <span class="st">"65 a 74 anos"</span>, <span class="co"># 65-74 years</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^47[5-9]"</span>) <span class="sc">~</span> <span class="st">"75 a 84 anos"</span>, <span class="co"># 75-84 years</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^48[0-4]"</span>) <span class="sc">~</span> <span class="st">"75 a 84 anos"</span>, <span class="co"># 75-84 years</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>            <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"85 anos ou mais"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">IDADE_class =</span> <span class="fu">factor</span>(<span class="at">x =</span> IDADE_class, <span class="at">levels =</span> <span class="fu">c</span>(</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Neonatal precoce"</span>,</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Neonatal tardia"</span>,</span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Neonatal tardia a pré-escolar"</span>,</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"1 a 4 anos"</span>,</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"5 a 14 anos"</span>,</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">"15 a 24 anos"</span>,</span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">"25 a 34 anos"</span>,</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"35 a 44 anos"</span>,</span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">"45 a 54 anos"</span>,</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    <span class="st">"55 a 64 anos"</span>,</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="st">"65 a 74 anos"</span>,</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"75 a 84 anos"</span>,</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="st">"85 anos ou mais"</span></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>  )))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sim_covid19 <span class="ot">&lt;-</span> sim_covid19 <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age_group =</span> <span class="fu">case_when</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^[0-1]"</span>) <span class="sc">~</span> <span class="st">"Neonatal precoce"</span>, <span class="co"># 00-06 days</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^20[0-6]"</span>) <span class="sc">~</span> <span class="st">"Neonatal precoce"</span>, <span class="co"># 00-06 days</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^20[7-9]"</span>) <span class="sc">~</span> <span class="st">"Neonatal tardia"</span>, <span class="co"># 07-27 days </span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^21[0-9]"</span>) <span class="sc">~</span> <span class="st">"Neonatal tardia"</span>, <span class="co"># 07-27 days</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^22[0-7]"</span>) <span class="sc">~</span> <span class="st">"Neonatal tardia"</span>, <span class="co"># 07-27 days</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^22[8-9]"</span>) <span class="sc">~</span> <span class="st">"Neonatal tardia a pré-escolar"</span>, <span class="co"># 28-364 days</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^3"</span>) <span class="sc">~</span> <span class="st">"Neonatal tardia a pré-escolar"</span>, <span class="co"># 28-364 days</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^400"</span>) <span class="sc">~</span> <span class="st">"Neonatal tardia a pré-escolar"</span>, <span class="co"># 28-364 days</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^40[1-4]"</span>) <span class="sc">~</span> <span class="st">"1 a 4 anos"</span>, <span class="co"># 01-4 years</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^40[5-9]"</span>) <span class="sc">~</span> <span class="st">"5 a 14 anos"</span>, <span class="co"># 05-14 years</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^41[0-4]"</span>) <span class="sc">~</span> <span class="st">"5 a 14 anos"</span>, <span class="co"># 05-14 years</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^41[5-9]"</span>) <span class="sc">~</span> <span class="st">"15 a 24 anos"</span>, <span class="co"># 15-24 years</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^42[0-4]"</span>) <span class="sc">~</span> <span class="st">"15 a 24 anos"</span>, <span class="co"># 15-24 years</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^42[4-9]"</span>) <span class="sc">~</span> <span class="st">"25 a 34 anos"</span>, <span class="co"># 25-34 years</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^43[0-4]"</span>) <span class="sc">~</span> <span class="st">"25 a 34 anos"</span>, <span class="co"># 25-34 years</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^43[5-9]"</span>) <span class="sc">~</span> <span class="st">"35 a 44 anos"</span>, <span class="co"># 35-44 years</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^44[0-4]"</span>) <span class="sc">~</span> <span class="st">"35 a 44 anos"</span>, <span class="co"># 35-44 years</span></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^44[5-9]"</span>) <span class="sc">~</span> <span class="st">"45 a 54 anos"</span>, <span class="co"># 45-54 years</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^45[0-4]"</span>) <span class="sc">~</span> <span class="st">"45 a 54 anos"</span>, <span class="co"># 45-54 years</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^45[5-9]"</span>) <span class="sc">~</span> <span class="st">"55 a 64 anos"</span>, <span class="co"># 55-64 years</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^46[0-4]"</span>) <span class="sc">~</span> <span class="st">"55 a 64 anos"</span>, <span class="co"># 55-64 years</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^46[5-9]"</span>) <span class="sc">~</span> <span class="st">"65 a 74 anos"</span>, <span class="co"># 65-74 years</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^47[0-4]"</span>) <span class="sc">~</span> <span class="st">"65 a 74 anos"</span>, <span class="co"># 65-74 years</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^47[5-9]"</span>) <span class="sc">~</span> <span class="st">"75 a 84 anos"</span>, <span class="co"># 75-84 years</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>            <span class="fu">str_detect</span>(IDADE, <span class="st">"^48[0-4]"</span>) <span class="sc">~</span> <span class="st">"75 a 84 anos"</span>, <span class="co"># 75-84 years</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>            <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"85 anos ou mais"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">age_group =</span> <span class="fu">factor</span>(<span class="at">x =</span> age_group, <span class="at">levels =</span> <span class="fu">c</span>(</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Neonatal precoce"</span>,</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Neonatal tardia"</span>,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Neonatal tardia a pré-escolar"</span>,</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"1 a 4 anos"</span>,</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"5 a 14 anos"</span>,</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">"15 a 24 anos"</span>,</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>    <span class="st">"25 a 34 anos"</span>,</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"35 a 44 anos"</span>,</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">"45 a 54 anos"</span>,</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>    <span class="st">"55 a 64 anos"</span>,</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>    <span class="st">"65 a 74 anos"</span>,</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"75 a 84 anos"</span>,</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>    <span class="st">"85 anos ou mais"</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>  )))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="tratamento-de-campos" class="level2">
 <h2 class="anchored" data-anchor-id="tratamento-de-campos">Tratamento de campos</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sim_covid19 <span class="ot">&lt;-</span> sim_covid19 <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">DTOBITO =</span> <span class="fu">as.Date</span>(<span class="at">x =</span> DTOBITO, <span class="at">format =</span> <span class="st">"%d%m%Y"</span>))</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sim_covid19 <span class="ot">&lt;-</span> sim_covid19 <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">DTOBITO =</span> <span class="fu">as.Date</span>(<span class="at">x =</span> DTOBITO, <span class="at">format =</span> <span class="st">"%d%m%Y"</span>),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ano_obito =</span> <span class="fu">year</span>(DTOBITO)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="salva-arquivo" class="level2">
 <h2 class="anchored" data-anchor-id="salva-arquivo">Salva arquivo</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(<span class="at">x =</span> sim_covid19, <span class="at">file =</span> <span class="st">"../../data/sim_covid19.rds"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(<span class="at">x =</span> sim_covid19, <span class="at">file =</span> <span class="st">"../../data/sim_covid19.rds"</span>)</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="informações-da-sessão" class="level2">
 <h2 class="anchored" data-anchor-id="informações-da-sessão">Informações da sessão</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copiar para a área de transferência" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>R version 4.2.0 (2022-04-22)
 Platform: aarch64-apple-darwin20 (64-bit)
@@ -245,13 +257,13 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
- [1] read.dbc_1.0.5  forcats_0.5.2   stringr_1.4.1   dplyr_1.0.10   
- [5] purrr_0.3.4     readr_2.1.2     tidyr_1.2.0     tibble_3.1.8   
- [9] ggplot2_3.3.6   tidyverse_1.3.2
+ [1] lubridate_1.8.0 read.dbc_1.0.5  forcats_0.5.2   stringr_1.4.1  
+ [5] dplyr_1.0.10    purrr_0.3.4     readr_2.1.2     tidyr_1.2.1    
+ [9] tibble_3.1.8    ggplot2_3.3.6   tidyverse_1.3.2
 
 loaded via a namespace (and not attached):
  [1] tidyselect_1.1.2    xfun_0.32           haven_2.5.1        
- [4] gargle_1.2.0        colorspace_2.0-3    vctrs_0.4.1        
+ [4] gargle_1.2.1        colorspace_2.0-3    vctrs_0.4.1        
  [7] generics_0.1.3      htmltools_0.5.3     yaml_2.3.5         
 [10] utf8_1.2.2          rlang_1.0.5         pillar_1.8.1       
 [13] foreign_0.8-82      withr_2.5.0         glue_1.6.2         
@@ -263,12 +275,12 @@ loaded via a namespace (and not attached):
 [31] broom_1.0.1         backports_1.4.1     scales_1.2.1       
 [34] googlesheets4_1.0.1 jsonlite_1.8.0      fs_1.5.2           
 [37] hms_1.1.2           digest_0.6.29       stringi_1.7.8      
-[40] grid_4.2.0          cli_3.3.0           tools_4.2.0        
+[40] grid_4.2.0          cli_3.4.0           tools_4.2.0        
 [43] magrittr_2.0.3      crayon_1.5.1        pkgconfig_2.0.3    
 [46] ellipsis_0.3.2      xml2_1.3.3          reprex_2.0.2       
-[49] googledrive_2.0.0   lubridate_1.8.0     assertthat_0.2.1   
-[52] rmarkdown_2.16      httr_1.4.4          rstudioapi_0.14    
-[55] R6_2.5.1            compiler_4.2.0     </code></pre>
+[49] googledrive_2.0.0   assertthat_0.2.1    rmarkdown_2.16     
+[52] httr_1.4.4          rstudioapi_0.14     R6_2.5.1           
+[55] compiler_4.2.0     </code></pre>
 </div>
 </div>
 </section>
