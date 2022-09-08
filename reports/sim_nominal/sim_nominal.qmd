@@ -10,6 +10,8 @@ editor: visual
 
 ```{r}
 library(tidyverse)
+options(dplyr.summarise.inform = FALSE)
+library(knitr)
 ```
 
 ## Dados
@@ -23,8 +25,20 @@ sim_covid19 <- read_rds(file = "../../data/sim_covid19.rds")
 ### Faixas etárias
 
 ```{r}
-ggplot(data = sim_covid19, aes(x = DTOBITO, fill = IDADE_class)) +
-  geom_bar(position = "stack")
+sim_covid19 %>%
+  group_by(ano_obito, age_group) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("Faixa etária", "2020", "2021", "Total")
+  )
 ```
 
 ## Informações da sessão
