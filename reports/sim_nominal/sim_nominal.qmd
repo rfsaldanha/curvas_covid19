@@ -136,6 +136,240 @@ sim_covid19 %>%
   )
 ```
 
+## Macrorregiões
+
+### Faixas etárias
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, macrorregiao, age_group) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("Macrorregião", "Faixa etária", "2020", "2021", "Total")
+  )
+```
+
+### Escolaridade
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, macrorregiao, escolaridade) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("Macrorregião", "Escolaridade", "2020", "2021", "Total")
+  )
+```
+
+### Raça/cor
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, macrorregiao, racacor) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("Macrorregião", "Raça/cor", "2020", "2021", "Total")
+  )
+```
+
+### Sexo
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, macrorregiao, sexo) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("Macrorregião", "Sexo", "2020", "2021", "Total")
+  )
+```
+
+### Ocupação (1)
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, macrorregiao, ocup1) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("Macrorregião", "Ocupação", "2020", "2021", "Total")
+  )
+```
+
+### Ocupação (2)
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, macrorregiao, ocup2) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("Macrorregião", "Ocupação", "2020", "2021", "Total")
+  )
+```
+
+## 
+
+## UFs
+
+### Faixas etárias
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, uf_res, age_group) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("UF", "Faixa etária", "2020", "2021", "Total")
+  )
+```
+
+### Escolaridade
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, uf_res, escolaridade) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("UF", "Escolaridade", "2020", "2021", "Total")
+  )
+```
+
+### Raça/cor
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, uf_res, racacor) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("UF", "Raça/cor", "2020", "2021", "Total")
+  )
+```
+
+### Sexo
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, uf_res, sexo) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("UF", "Sexo", "2020", "2021", "Total")
+  )
+```
+
+### Ocupação (1)
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, uf_res, ocup1) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("UF", "Ocupação", "2020", "2021", "Total")
+  )
+```
+
+### Ocupação (2)
+
+```{r}
+sim_covid19 %>%
+  group_by(ano_obito, uf_res, ocup2) %>%
+  summarise(freq = n()) %>%
+  ungroup() %>%
+  pivot_wider(
+    names_from = ano_obito,
+    values_from = freq
+  ) %>%
+  rowwise() %>%
+  mutate(total = sum(`2020`, `2021`, na.rm = TRUE)) %>%
+  kable(
+    format.args = list(big.mark = ".", decimal.mark = ","), 
+    col.names = c("UF", "Ocupação", "2020", "2021", "Total")
+  )
+```
+
 ## Informações da sessão
 
 ```{r}
