@@ -243,6 +243,102 @@ sim_covid19 <- sim_covid19 %>%
   )
 ```
 
+## UFs e macrorregiões
+
+```{r}
+sim_covid19 <- sim_covid19 %>% 
+  mutate(
+    CODMUNRES = as.character(levels(CODMUNRES))[CODMUNRES],
+    uf_res = case_when(
+      substr(CODMUNRES, 0, 2) == "11" ~ "Rondônia",
+      substr(CODMUNRES, 0, 2) == "12" ~ "Acre",
+      substr(CODMUNRES, 0, 2) == "13" ~ "Amazonas",
+      substr(CODMUNRES, 0, 2) == "14" ~ "Roraima",
+      substr(CODMUNRES, 0, 2) == "15" ~ "Pará",
+      substr(CODMUNRES, 0, 2) == "16" ~ "Amapá",
+      substr(CODMUNRES, 0, 2) == "17" ~ "Tocantins",
+      substr(CODMUNRES, 0, 2) == "21" ~ "Maranhão",
+      substr(CODMUNRES, 0, 2) == "22" ~ "Piauí",
+      substr(CODMUNRES, 0, 2) == "23" ~ "Ceará",
+      substr(CODMUNRES, 0, 2) == "24" ~ "Rio Grande do Norte",
+      substr(CODMUNRES, 0, 2) == "25" ~ "Paraíba",
+      substr(CODMUNRES, 0, 2) == "26" ~ "Pernambuco",
+      substr(CODMUNRES, 0, 2) == "27" ~ "Alagoas",
+      substr(CODMUNRES, 0, 2) == "28" ~ "Sergipe",
+      substr(CODMUNRES, 0, 2) == "29" ~ "Bahia",
+      substr(CODMUNRES, 0, 2) == "31" ~ "Minas Gerais",
+      substr(CODMUNRES, 0, 2) == "32" ~ "Espírito Santo",
+      substr(CODMUNRES, 0, 2) == "33" ~ "Rio de Janeiro",
+      substr(CODMUNRES, 0, 2) == "35" ~ "São Paulo",
+      substr(CODMUNRES, 0, 2) == "41" ~ "Paraná",
+      substr(CODMUNRES, 0, 2) == "42" ~ "Santa Catarina",
+      substr(CODMUNRES, 0, 2) == "43" ~ "Rio Grande do Sul",
+      substr(CODMUNRES, 0, 2) == "50" ~ "Mato Grosso do Sul",
+      substr(CODMUNRES, 0, 2) == "51" ~ "Mato Grosso",
+      substr(CODMUNRES, 0, 2) == "52" ~ "Goiás",
+      substr(CODMUNRES, 0, 2) == "53" ~ "Distrito Federal"
+    ),
+    uf_res_sigla = case_when(
+      substr(CODMUNRES, 0, 2) == "11" ~ "RO",
+      substr(CODMUNRES, 0, 2) == "12" ~ "AC",
+      substr(CODMUNRES, 0, 2) == "13" ~ "AM",
+      substr(CODMUNRES, 0, 2) == "14" ~ "RR",
+      substr(CODMUNRES, 0, 2) == "15" ~ "PA",
+      substr(CODMUNRES, 0, 2) == "16" ~ "AP",
+      substr(CODMUNRES, 0, 2) == "17" ~ "TO",
+      substr(CODMUNRES, 0, 2) == "21" ~ "MA",
+      substr(CODMUNRES, 0, 2) == "22" ~ "PI",
+      substr(CODMUNRES, 0, 2) == "23" ~ "CE",
+      substr(CODMUNRES, 0, 2) == "24" ~ "RN",
+      substr(CODMUNRES, 0, 2) == "25" ~ "PB",
+      substr(CODMUNRES, 0, 2) == "26" ~ "PE",
+      substr(CODMUNRES, 0, 2) == "27" ~ "AL",
+      substr(CODMUNRES, 0, 2) == "28" ~ "SE",
+      substr(CODMUNRES, 0, 2) == "29" ~ "BA",
+      substr(CODMUNRES, 0, 2) == "31" ~ "MG",
+      substr(CODMUNRES, 0, 2) == "32" ~ "ES",
+      substr(CODMUNRES, 0, 2) == "33" ~ "RJ",
+      substr(CODMUNRES, 0, 2) == "35" ~ "SP",
+      substr(CODMUNRES, 0, 2) == "41" ~ "PR",
+      substr(CODMUNRES, 0, 2) == "42" ~ "SC",
+      substr(CODMUNRES, 0, 2) == "43" ~ "RS",
+      substr(CODMUNRES, 0, 2) == "50" ~ "MS",
+      substr(CODMUNRES, 0, 2) == "51" ~ "MT",
+      substr(CODMUNRES, 0, 2) == "52" ~ "GO",
+      substr(CODMUNRES, 0, 2) == "53" ~ "DF"
+    ),
+    uf_res = case_when(
+      substr(CODMUNRES, 0, 2) == "11" ~ "Norte",
+      substr(CODMUNRES, 0, 2) == "12" ~ "Norte",
+      substr(CODMUNRES, 0, 2) == "13" ~ "Norte",
+      substr(CODMUNRES, 0, 2) == "14" ~ "Norte",
+      substr(CODMUNRES, 0, 2) == "15" ~ "Norte",
+      substr(CODMUNRES, 0, 2) == "16" ~ "Norte",
+      substr(CODMUNRES, 0, 2) == "17" ~ "Norte",
+      substr(CODMUNRES, 0, 2) == "21" ~ "Nordeste",
+      substr(CODMUNRES, 0, 2) == "22" ~ "Nordeste",
+      substr(CODMUNRES, 0, 2) == "23" ~ "Nordeste",
+      substr(CODMUNRES, 0, 2) == "24" ~ "Nordeste",
+      substr(CODMUNRES, 0, 2) == "25" ~ "Nordeste",
+      substr(CODMUNRES, 0, 2) == "26" ~ "Nordeste",
+      substr(CODMUNRES, 0, 2) == "27" ~ "Nordeste",
+      substr(CODMUNRES, 0, 2) == "28" ~ "Nordeste",
+      substr(CODMUNRES, 0, 2) == "29" ~ "Nordeste",
+      substr(CODMUNRES, 0, 2) == "31" ~ "Sudeste",
+      substr(CODMUNRES, 0, 2) == "32" ~ "Sudeste",
+      substr(CODMUNRES, 0, 2) == "33" ~ "Sudeste",
+      substr(CODMUNRES, 0, 2) == "35" ~ "Sudeste",
+      substr(CODMUNRES, 0, 2) == "41" ~ "Sul",
+      substr(CODMUNRES, 0, 2) == "42" ~ "Sul",
+      substr(CODMUNRES, 0, 2) == "43" ~ "Sul",
+      substr(CODMUNRES, 0, 2) == "50" ~ "Centro-Oeste",
+      substr(CODMUNRES, 0, 2) == "51" ~ "Centro-Oeste",
+      substr(CODMUNRES, 0, 2) == "52" ~ "Centro-Oeste",
+      substr(CODMUNRES, 0, 2) == "53" ~ "Centro-Oeste"
+    )
+  )
+```
+
 ## Salva arquivo
 
 ```{r}
