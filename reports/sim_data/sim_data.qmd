@@ -307,7 +307,7 @@ sim_covid19 <- sim_covid19 %>%
       substr(CODMUNRES, 0, 2) == "52" ~ "GO",
       substr(CODMUNRES, 0, 2) == "53" ~ "DF"
     ),
-    uf_res = case_when(
+    macrorregiao = case_when(
       substr(CODMUNRES, 0, 2) == "11" ~ "Norte",
       substr(CODMUNRES, 0, 2) == "12" ~ "Norte",
       substr(CODMUNRES, 0, 2) == "13" ~ "Norte",
